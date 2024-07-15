@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>University Residence Management</title>
     <style>
-        .residence, .room, .student, .maintenance {
+        .residence, .student, .maintenance {
             margin: 10px 0;
             padding: 5px;
             border: 1px solid #ddd;
@@ -14,68 +14,41 @@
 </head>
 <body>
     <h1>University Residence Management Demo</h1>
+
+    <div>
+        <h2>Assign Residence to Student</h2>
+        <form id="assignResidenceForm">
+            <label for="student">Student:</label>
+            <select id="student">
+                <option value="S001">John Doe</option>
+                <option value="S002">Jane Smith</option>
+                <option value="S9">Didi</option>
+            </select>
+            <label for="residence">Residence:</label>
+            <select id="residence">
+                <option value="Dorm A">Dorm A</option>
+                <option value="Apt A">Apt A</option>
+            </select>
+            <button type="submit">Assign</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Submit Maintenance Request</h2>
+        <form id="submitRequestForm">
+            <label for="requestStudent">Student:</label>
+            <select id="requestStudent">
+                <option value="S001">John Doe</option>
+                <option value="S002">Jane Smith</option>
+            </select>
+            <label for="description">Description:</label>
+            <input type="text" id="description" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
     <div id="university-details"></div>
+
     <script src="index.js"></script>
-    <script>
-        // Create residences
-        const dorm1 = new DormRoom('Dorm A', '123 Dorm St', 200, 500);
-        const apartment1 = new Apartment('Apt A', '456 Apartment Rd', 3, 1200);
-
-        // Create students
-        const student1 = new Student('John Doe', 'S001', 'Male');
-        const student2 = new Student('Jane Smith', 'S002', 'Female');
-
-        // Assign residences
-        student1.assignResidence(dorm1);
-        student2.assignResidence(apartment1);
-
-        // Create maintenance requests
-        const request1 = new MaintenanceRequest('Leaky faucet', student1);
-        const request2 = new MaintenanceRequest('Broken heater', student2);
-
-        // Function to display university details
-        function displayUniversityDetails() {
-            const universityDiv = document.getElementById('university-details');
-            
-            // Display Dorm Room
-            const dormDiv = document.createElement('div');
-            dormDiv.classList.add('residence');
-            dormDiv.innerHTML = `<h2>${dorm1.name}</h2>
-                                 <p>Address: ${dorm1.address}</p>
-                                 <p>Size: ${dorm1.size} sq ft</p>
-                                 <p>Rent: $${dorm1.monthlyRent}</p>
-                                 <p>Occupied: ${dorm1.isOccupied}</p>`;
-            universityDiv.appendChild(dormDiv);
-
-            // Display Apartment
-            const apartmentDiv = document.createElement('div');
-            apartmentDiv.classList.add('residence');
-            apartmentDiv.innerHTML = `<h2>${apartment1.name}</h2>
-                                      <p>Address: ${apartment1.address}</p>
-                                      <p>Bedrooms: ${apartment1.numberOfBedrooms}</p>
-                                      <p>Rent: $${apartment1.monthlyRent}</p>
-                                      <p>Occupied: ${apartment1.isOccupied}</p>`;
-            universityDiv.appendChild(apartmentDiv);
-
-            // Display Students
-            const studentDiv = document.createElement('div');
-            studentDiv.classList.add('student');
-            studentDiv.innerHTML = `<h3>Students</h3>
-                                    <p>${student1.name} (ID: ${student1.studentId}, Gender: ${student1.gender}) - Assigned to: ${student1.assignedResidence.name}</p>
-                                    <p>${student2.name} (ID: ${student2.studentId}, Gender: ${student2.gender}) - Assigned to: ${student2.assignedResidence.name}</p>`;
-            universityDiv.appendChild(studentDiv);
-
-            // Display Maintenance Requests
-            const maintenanceDiv = document.createElement('div');
-            maintenanceDiv.classList.add('maintenance');
-            maintenanceDiv.innerHTML = `<h3>Maintenance Requests</h3>
-                                        <p>Description: ${request1.description}, Status: ${request1.status}, Submitted by: ${request1.submittedBy.name}</p>
-                                        <p>Description: ${request2.description}, Status: ${request2.status}, Submitted by: ${request2.submittedBy.name}</p>`;
-            universityDiv.appendChild(maintenanceDiv);
-        }
-
-        // Display the state of the university
-        displayUniversityDetails();
-    </script>
 </body>
 </html>
