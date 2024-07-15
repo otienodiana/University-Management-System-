@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Residence Management</title>
+</head>
+<body>
+    <h1>University Residence Management Demo</h1>
+    <script src="university.js"></script>
+    <script>
+        // Create a university
+        const myUniversity = new University('My University');
+
+        // Create residences
+        const residence1 = new Residence('Residence A');
+        const residence2 = new Residence('Residence B');
+
+        // Add residences to the university
+        myUniversity.addResidence(residence1);
+        myUniversity.addResidence(residence2);
+
+        // Create rooms
+        const room101 = new Room(101);
+        const room102 = new Room(102);
+
+        // Add rooms to residences
+        residence1.addRoom(room101);
+        residence1.addRoom(room102);
+
+        // Create students
+        const student1 = new Student('John Doe', 'S001');
+        const student2 = new Student('Jane Smith', 'S002');
+
+        // Assign students to rooms
+        student1.assignRoom(room101);
+        student2.assignRoom(room102);
+
+        // Students submit maintenance requests
+        student1.submitMaintenanceRequest('Leaky faucet');
+        student2.submitMaintenanceRequest('Broken heater');
+
+        // Display the state of the university
+        console.log(myUniversity);
+    </script>
+</body>
+</html>
