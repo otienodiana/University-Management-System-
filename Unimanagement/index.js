@@ -1,80 +1,72 @@
-// University class
-class University {
-    constructor(name) {
-        this.name = name;
-        this.residences = [];
-    }
-
-    addResidence(residence) {
-        this.residences.push(residence);
-    }
-
-    getResidenceByName(name) {
-        return this.residences.find(residence => residence.name === name);
-    }
-}
-
-// Residence class
+// Base class for Residences
 class Residence {
-    constructor(name) {
+    constructor(name, address) {
         this.name = name;
-        this.rooms = [];
+        this.address = address;
+        this.isOccupied = false;
     }
 
-    addRoom(room) {
-        this.rooms.push(room);
+    occupy() {
+        this.isOccupied = true;
     }
 
-    getRoomByNumber(number) {
-        return this.rooms.find(room => room.number === number);
+    vacate() {
+        this.isOccupied = false;
     }
 }
 
-// Student class
+// DormRoom class extending Residence
+class DormRoom extends Residence {
+    constructor(name, address, size, monthlyRent) {
+        super(name, address);
+        this.size = size;
+        this.monthlyRent = monthlyRent;
+    }
+}
+
+// Apartment class extending Residence
+class Apartment extends Residence {
+    constructor(name, address, numberOfBedrooms, monthlyRent) {
+        super(name, address);
+        this.numberOfBedrooms = numberOfBedrooms;
+        this.monthlyRent = monthlyRent;
+    }
+}
+
 class Student {
-    constructor(name, studentId) {
+    constructor(name, studentId, gender) {
         this.name = name;
         this.studentId = studentId;
-        this.room = null;
+        this.gender = gender;
+        this.assignedResidence = null;
     }
 
-    assignRoom(room) {
-        this.room = room;
-        room.assignStudent(this);
-    }
-
-    submitMaintenanceRequest(description) {
-        const request = new MaintenanceRequest(description, this);
-        this.room.addMaintenanceRequest(request);
+    assignResidence(residence) {
+        this.assignedResidence = residence;
+        residence.occupy();
     }
 }
 
-// Room class
-class Room {
-    constructor(number) {
-        this.number = number;
-        this.students = [];
-        this.maintenanceRequests = [];
-    }
-
-    assignStudent(student) {
-        this.students.push(student);
-    }
-
-    addMaintenanceRequest(request) {
-        this.maintenanceRequests.push(request);
-    }
-}
-
-// MaintenanceRequest class
 class MaintenanceRequest {
     constructor(description, submittedBy) {
         this.description = description;
-        this.status = 'pending';
+        this.status = 'submitted';
         this.submittedBy = submittedBy;
+        this.assignedEmployee = null;
     }
 
     updateStatus(newStatus) {
         this.status = newStatus;
+    }
+
+    assignEmployee(employee) {
+        this.assignedEmployee = employee;
+    }
+}
+
+class Employee {
+    constructor(name, employeeId) {
+        this.name = name;
+        this.employeeId = employeeId;
     }
 }
