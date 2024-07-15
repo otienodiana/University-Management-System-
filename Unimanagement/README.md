@@ -1,0 +1,1 @@
+This projects deals in developing a simple university management system while applying the concepts object oriented programming
