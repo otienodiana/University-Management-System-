@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>University Residence Management</title>
+    <style>
+        .residence, .room, .student, .maintenance {
+            margin: 10px 0;
+            padding: 5px;
+            border: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
     <h1>University Residence Management Demo</h1>
+    <div id="university-details"></div>
     <script src="index.js"></script>
     <script>
         // Create a university
@@ -40,8 +48,60 @@
         student1.submitMaintenanceRequest('Leaky faucet');
         student2.submitMaintenanceRequest('Broken heater');
 
+        // Function to display university details
+        function displayUniversityDetails(university) {
+            const universityDiv = document.getElementById('university-details');
+            const universityName = document.createElement('h2');
+            universityName.textContent = university.name;
+            universityDiv.appendChild(universityName);
+
+            university.residences.forEach(residence => {
+                const residenceDiv = document.createElement('div');
+                residenceDiv.classList.add('residence');
+
+                const residenceName = document.createElement('h3');
+                residenceName.textContent = residence.name;
+                residenceDiv.appendChild(residenceName);
+
+                residence.rooms.forEach(room => {
+                    const roomDiv = document.createElement('div');
+                    roomDiv.classList.add('room');
+
+                    const roomNumber = document.createElement('p');
+                    roomNumber.textContent = `Room Number: ${room.number}`;
+                    roomDiv.appendChild(roomNumber);
+
+                    room.students.forEach(student => {
+                        const studentDiv = document.createElement('div');
+                        studentDiv.classList.add('student');
+
+                        const studentName = document.createElement('p');
+                        studentName.textContent = `Student Name: ${student.name}, ID: ${student.studentId}`;
+                        studentDiv.appendChild(studentName);
+
+                        roomDiv.appendChild(studentDiv);
+                    });
+
+                    room.maintenanceRequests.forEach(request => {
+                        const requestDiv = document.createElement('div');
+                        requestDiv.classList.add('maintenance');
+
+                        const requestDescription = document.createElement('p');
+                        requestDescription.textContent = `Maintenance Request: ${request.description}, Status: ${request.status}`;
+                        requestDiv.appendChild(requestDescription);
+
+                        roomDiv.appendChild(requestDiv);
+                    });
+
+                    residenceDiv.appendChild(roomDiv);
+                });
+
+                universityDiv.appendChild(residenceDiv);
+            });
+        }
+
         // Display the state of the university
-        console.log(myUniversity);
+        displayUniversityDetails(myUniversity);
     </script>
 </body>
 </html>
